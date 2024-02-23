@@ -9,3 +9,6 @@ ALTER TABLE employees
 ADD email VARCHAR(100)
 
 SELECT * FROM employees
+
+ALTER TABLE employees
+ADD is_deleted BIT DEFAULT 0

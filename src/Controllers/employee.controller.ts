@@ -51,6 +51,64 @@ export const registerEmployee = async (req:Request, res:Response)=>{
     }
 }
 
+export const updateEmployee = async(req:Request, res: Response)=>{
+    try {
+        const id = req.params.id
+
+        const{first_name, last_name, email, cohort}:Employee = req.body
+
+        const result = await dbhelper.execute("updateEmployee", {
+            user_id: id,
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            cohort: cohort 
+        })
+
+        console.log(result);
+        
+
+        return res.status(200).json({
+            message: "User updated successfully"
+        })
+
+
+    } catch (error) {
+        return res.status(500).json({ 
+            error: "Internal Server Error" 
+        });
+    }
+}
+
+
+export const deleteEmployee = async(req:Request, res: Response)=>{
+    try {
+        const id = req.params.id
+
+        const{first_name, last_name, email, cohort}:Employee = req.body
+
+        const result = await dbhelper.execute("deleteEmployee", {
+            user_id: id,
+            first_name: first_name,
+            last_name: last_name,
+            email: email,
+            cohort: cohort 
+        })
+
+        console.log(result);
+        
+
+        return res.status(200).json({
+            message: "User deleted successfully"
+        })
+
+
+    } catch (error) {
+        return res.status(500).json({ 
+            error: "Internal Server Error" 
+        });
+    }
+}
 
 
 
