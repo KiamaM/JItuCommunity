@@ -35,7 +35,6 @@ describe("Employee registration", ()=>{
             }
 
 
-            //Mimic password hashing
 
 
             //To chain the inputs when not using a db helper
