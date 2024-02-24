@@ -6,7 +6,8 @@ Content-Type: application/json
     "first_name":"May",
     "last_name":"Dean",
     "email":"name@mailesd.com",
-    "cohort":7   
+    "cohort":7, 
+    "password":"reeteteeyyeyeyy"
 }
 
 

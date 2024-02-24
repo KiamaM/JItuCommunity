@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import {v4} from 'uuid'
 import { Employee } from '../Interfaces/employee.interface'
 import Connection from '../Database/DbHelpers/dbhelper'
+import bcrypt from 'bcrypt'
 
 const dbhelper = new Connection
 
@@ -11,7 +12,10 @@ export const registerEmployee = async (req:Request, res:Response)=>{
     try {
        const id = v4()
    
-       const{first_name, last_name,email, cohort}:Employee = req.body   
+       const{first_name, last_name,email, cohort, password}:Employee = req.body 
+       
+       const hashed_pwd = await bcrypt.hash(password, 5)
+       console.log("I created this", hashed_pwd);
        
    
        let result = await (dbhelper.execute('registerEmployee', {
@@ -49,13 +53,36 @@ export const registerEmployee = async (req:Request, res:Response)=>{
     } catch (error) {
         return res.json(error)
     }
+    
 }
+
+
+
+
+
+export const getEmployees = async(req:Request, res:Response)=>{
+    try {
+
+        let employees = await (dbhelper.execute('getAllEmployees'))
+
+
+        return res.json({
+            employees: employees
+        })
+    } catch (error:any) {
+        return res.json({
+            error:error.originalError.info.message
+        })
+    }
+}
+
+
 
 export const updateEmployee = async(req:Request, res: Response)=>{
     try {
         const id = req.params.id
 
-        const{first_name, last_name, email, cohort}:Employee = req.body
+        const{first_name, last_name, email, cohort, password}:Employee = req.body
 
         const result = await dbhelper.execute("updateEmployee", {
             user_id: id,
@@ -85,7 +112,7 @@ export const deleteEmployee = async(req:Request, res: Response)=>{
     try {
         const id = req.params.id
 
-        const{first_name, last_name, email, cohort}:Employee = req.body
+        const{first_name, last_name, email, cohort, password}:Employee = req.body
 
         const result = await dbhelper.execute("deleteEmployee", {
             user_id: id,

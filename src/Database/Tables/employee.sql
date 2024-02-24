@@ -8,6 +8,10 @@ CREATE TABLE employees(
 ALTER TABLE employees
 ADD email VARCHAR(100)
 
+ALTER TABLE employees
+ADD password VARCHAR(100)
+
+
 SELECT * FROM employees
 
 ALTER TABLE employees

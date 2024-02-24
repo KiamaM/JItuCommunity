@@ -3,4 +3,5 @@ export interface Employee{
     last_name:string
     email:string
     cohort:number
+    password:string
 }
